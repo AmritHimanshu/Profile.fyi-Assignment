@@ -27,6 +27,7 @@ function Body() {
         );
         const data = await res.json();
         setProducts(data);
+        console.log(data)
         setLoading(false);
       } catch (error) {
         console.log(error);
