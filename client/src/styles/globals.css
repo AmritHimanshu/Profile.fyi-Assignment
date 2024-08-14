@@ -30,6 +30,12 @@ body {
   overflow: hidden;
 }
 
+@media (min-width: 640px) {
+  .no-scroll {
+    overflow: auto;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
