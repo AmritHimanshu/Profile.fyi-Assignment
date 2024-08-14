@@ -7,12 +7,23 @@ import Header from "./components/Header";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 function Cart() {
-  const [cartItems, setCartItems] = useState([]);
-  const [subTotal, setSubTotal] = useState(0);
-  const [discount, setDiscount] = useState(18000);
-  const [checkOutFlag, setCheckOutFlag] = useState(false);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  const [cartItems, setCartItems] = useState([]); // Store cart products
+  const [subTotal, setSubTotal] = useState(0); // Total price of the products in the cart
+  const [discount, setDiscount] = useState(18000); // Store the discount for the products
+  const [checkOutFlag, setCheckOutFlag] = useState(false); // Handles the checkout redirect on clicking on buy now button
+
+  // Fetching products in the cart from localStorage and storing in cartItems
+  useEffect(() => {
+    let itemsObj = [];
+    const items = localStorage.getItem("items");
+    if (items == null) itemsObj = [];
+    else itemsObj = JSON.parse(items);
+    setCartItems(itemsObj);
+  }, []);
+
+  // For updating no. of products in the cart on any change in the cartItems and calculating total price of the products
   useEffect(() => {
     const items = localStorage.getItem("items");
     let itemsObj = [];
@@ -27,14 +38,7 @@ function Cart() {
     setSubTotal(totalPrice);
   }, [cartItems, dispatch]);
 
-  useEffect(() => {
-    let itemsObj = [];
-    const items = localStorage.getItem("items");
-    if (items == null) itemsObj = [];
-    else itemsObj = JSON.parse(items);
-    setCartItems(itemsObj);
-  }, []);
-
+  // Deleting products from the localStorage on clicking on the delete icon
   const handleOnDelete = (id) => {
     let itemsObj = [];
     const items = localStorage.getItem("items");
@@ -45,6 +49,7 @@ function Cart() {
     setCartItems(updatedItemsObj);
   };
 
+  // Handle quantity of the products on changing its quantity and updating in localStorage
   const handleQuantity = (e, id) => {
     let value = e.target.value;
     if (e.target.value == "") value = 0;
@@ -68,6 +73,7 @@ function Cart() {
     }
   };
 
+  // Showing notification of redirecting to checkout page on clicking
   const handleBuyNow = () => {
     setCheckOutFlag(true);
     setTimeout(() => {
@@ -84,13 +90,16 @@ function Cart() {
         <Header />
       </div>
       <div>
+        {/* Checkout notification */}
         {checkOutFlag && (
           <div className="p-3 bg-green-200 sticky top-0 w-full z-[999] shadow-xl">
             Successfully cart added
           </div>
         )}
+
         <div className="text-center font-medium p-10">Your Cart</div>
         <div className="mb-10">
+          {/* Showing products in the form of table for bigger screen */}
           {cartItems.length > 0 ? (
             <table className="hidden lg:block w-max m-auto divide-y divide-gray-200 mb-10">
               <thead className="bg-gray-100 bg-opacity-80">
@@ -152,6 +161,7 @@ function Cart() {
             </div>
           )}
 
+          {/* Showing products for smaller screens */}
           <div className="space-y-5 pb-10 lg:hidden">
             {cartItems?.map((cartItem) => (
               <div
@@ -202,6 +212,7 @@ function Cart() {
             ))}
           </div>
 
+          {/* Showing total price of the products in the cart */}
           {cartItems.length > 0 && (
             <div className="w-[400px] sm:w-[600px] md:w-[750px] lg:w-[930px] m-auto">
               <div className="border p-4 font-semibold">Cart totals</div>

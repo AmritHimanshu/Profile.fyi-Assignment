@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 function Header() {
 
+  // Redux count for showing number of products in the cart
   const count = useSelector(selectCount);
 
   return (

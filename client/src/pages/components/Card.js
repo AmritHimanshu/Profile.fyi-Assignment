@@ -10,12 +10,12 @@ function Card({ id, source, alternate, title, price, onClick }) {
 
   const dispatch = useDispatch();
 
-  const [isInCart, setIsInCart] = useState(false);
-  const [addingToCart, setAddingToCart] = useState(false);
+  const [isInCart, setIsInCart] = useState(false); // Handles the favourite icon for checking whether it is in the cart or not
+  const [addingToCart, setAddingToCart] = useState(false); // Handle loading icon while adding products to the cart
 
+  // Handles functionality to add products to the cart/localStorage
   const handleAddToCart = () => {
     setAddingToCart(true);
-
     const items = localStorage.getItem("items");
     let itemsObj = [];
     if (items == null) itemsObj = [];
@@ -23,7 +23,6 @@ function Card({ id, source, alternate, title, price, onClick }) {
     itemsObj.push({ id, source, alternate, title, price, quantity:1 });
     localStorage.setItem("items", JSON.stringify(itemsObj));
     dispatch(increment());
-
     setAddingToCart(false);
     setIsInCart(true);
     (() => {
@@ -31,9 +30,9 @@ function Card({ id, source, alternate, title, price, onClick }) {
     })();
   };
 
+  // Handles functionality to remove products from the cart/localStorage
   const handleRemoveToCart = () => {
     setAddingToCart(true);
-
     let itemsObj = [];
     const items = localStorage.getItem("items");
     if (items == null) return;
@@ -41,7 +40,6 @@ function Card({ id, source, alternate, title, price, onClick }) {
     const updatedItemsObj = itemsObj.filter((item) => item.id !== id);
     localStorage.setItem("items", JSON.stringify(updatedItemsObj));
     dispatch(decrement());
-
     setAddingToCart(false);
     setIsInCart(false);
     (() => {
@@ -49,6 +47,7 @@ function Card({ id, source, alternate, title, price, onClick }) {
     })();
   };
 
+  // Checks for the product in the cart for updating favourite icon
   useEffect(() => {
     const items = localStorage.getItem("items");
     let itemsObj;

@@ -9,6 +9,7 @@ export default function Home() {
 
   const dispatch = useDispatch();
 
+  // For updating no of products in the cart
   useEffect(()=>{
     const items = localStorage.getItem("items");
     let itemsObj = [];

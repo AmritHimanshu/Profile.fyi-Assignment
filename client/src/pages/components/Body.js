@@ -3,12 +3,13 @@ import AutorenewIcon from "@mui/icons-material/Autorenew";
 import Card from "./Card";
 
 function Body() {
-  const [loading, setLoading] = useState(false);
-  const [addFlag, setAddFlag] = useState(false);
-  const [flagText, setFlagText] = useState("");
-  const [products, setProducts] = useState();
-  const [offset, setOffset] = useState(0);
 
+  const [loading, setLoading] = useState(false); // Loading icon flag before fetching products
+  const [addFlag, setAddFlag] = useState(false); // Added or removed product from/to cart icon notification flag
+  const [flagText, setFlagText] = useState(""); // Added or removed text for notification
+  const [products, setProducts] = useState(); // Store products fetched through API
+
+  // Fuction to show notification on adding or removing products from the cart
   const handleOnClick = (text) => {
     setAddFlag(true);
     setFlagText(text);
@@ -18,6 +19,7 @@ function Body() {
     }, 2000);
   };
 
+  // Fetching products
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -36,16 +38,18 @@ function Body() {
     };
 
     fetchProduct();
-  }, [offset]);
+  }, []);
 
   return (
     <div className="w-full relative">
+      {/* Notification for adding or removing products to/from cart */}
       {addFlag && (
         <div className="p-3 bg-green-200 sticky top-0 w-full z-[999] shadow-xl">
           {flagText}
         </div>
       )}
 
+      {/* Loading icon */}
       {loading ? (
         <AutorenewIcon
           sx={{
