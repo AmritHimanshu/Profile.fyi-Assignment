@@ -67,7 +67,7 @@ function Cart() {
       <div className="pt-10">
         <div className="text-center font-medium p-10">Your Cart</div>
         <div>
-          <table className="min-w-full divide-y divide-gray-200">
+          <table className="min-w-max m-auto divide-y divide-gray-200">
             <thead className="bg-gray-100 bg-opacity-80">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
@@ -85,10 +85,10 @@ function Cart() {
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-gray-100 bg-opacity-60 shadow-sm">
               {cartItems?.map((cartItem, index) => (
                 <tr key={cartItem.id}>
-                  <td className="px-3 py-4 whitespace-nowrap flex items-center justify-evenly">
+                  <td className="px-3 py-4 whitespace-nowrap flex items-center justify-evenly w-[200px]">
                     <CancelIcon
                       sx={{ cursor: "pointer" }}
                       onClick={() => handleOnDelete(cartItem.id)}
@@ -101,22 +101,22 @@ function Cart() {
                       height={10}
                     />
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-6 py-4 text-sm w-[350px]">
                     {cartItem.title}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-6 py-4">
                     ${cartItem.price}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-6 py-4 w-[150px]">
                     <input
                       type="number"
                       value={cartItem.quantity}
                       min="1"
-                      className="border-2 outline-0"
+                      className="border-2 outline-0 w-[100px]"
                       onChange={(e) => handleQuantity(e, cartItem.id)}
                     />
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-6 py-4">
                     ${cartItem.price * cartItem.quantity}
                   </td>
                 </tr>
