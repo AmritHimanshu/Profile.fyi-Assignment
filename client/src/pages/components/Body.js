@@ -23,7 +23,8 @@ function Body() {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://api.escuelajs.co/api/v1/products?offset=0&limit=20`
+          // `https://api.escuelajs.co/api/v1/products?offset=0&limit=20`
+          'https://api.pujakaitem.com/api/products'
         );
         const data = await res.json();
         // console.log(data)
@@ -62,9 +63,9 @@ function Body() {
             <Card
               key={index}
               id={product.id}
-              source={product.images[0]}
-              alternate={product.category.name}
-              title={product.title}
+              source={product.image}
+              alternate={product.category}
+              title={product.name}
               price={product.price}
               onClick={handleOnClick}
             />

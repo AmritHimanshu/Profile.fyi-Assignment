@@ -8,6 +8,8 @@ import CancelIcon from "@mui/icons-material/Cancel";
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
+  const [subTotal,setSubTotal] = useState(0);
+  const [discount,setDiscount] = useState(25000);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,7 +18,12 @@ function Cart() {
     if (items == null) itemsObj = [];
     else itemsObj = JSON.parse(items);
     dispatch(setCount(itemsObj.length));
-  }, [cartItems]);
+
+    let totalPrice = 0;
+    cartItems.map((cartItem)=>totalPrice  += (cartItem.quantity*cartItem.price));
+    setSubTotal(totalPrice);
+
+  }, [cartItems,dispatch]);
 
   useEffect(() => {
     let itemsObj = [];
@@ -37,6 +44,8 @@ function Cart() {
   };
 
   const handleQuantity = (e, id) => {
+    let value = e.target.value;
+    if(e.target.value == '') value = 0;
     let itemsObj = [];
     const items = localStorage.getItem("items");
     if (items == null) itemsObj = [];
@@ -44,7 +53,7 @@ function Cart() {
 
     if (e.target.value >= 0) {
       const updatedItems = itemsObj.map((item) =>
-        item.id === id ? { ...item, quantity: parseInt(e.target.value) } : item
+        item.id === id ? { ...item, quantity: parseInt(value) } : item
       );
       localStorage.setItem("items", JSON.stringify(updatedItems));
       setCartItems(updatedItems);
@@ -66,8 +75,8 @@ function Cart() {
       <div>
         <div className="text-center font-medium p-10">Your Cart</div>
         <div className="mb-10">
-          <table className="hidden lg:block w-max m-auto divide-y divide-gray-200 mb-10">
-            {cartItems.length > 0 ? <thead className="bg-gray-100 bg-opacity-80">
+          {cartItems.length > 0 ? <table className="hidden lg:block w-max m-auto divide-y divide-gray-200 mb-10">
+            <thead className="bg-gray-100 bg-opacity-80">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -83,7 +92,7 @@ function Cart() {
                   Subtotal
                 </th>
               </tr>
-            </thead> : <div className="text-xl font-bold text-gray-400">Cart is empty</div>}
+            </thead>
             <tbody className="bg-gray-100 bg-opacity-60 shadow-sm">
               {cartItems?.map((cartItem) => (
                 <tr key={cartItem.id}>
@@ -119,7 +128,7 @@ function Cart() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table> : <div className="text-xl font-bold text-gray-400 text-center mb-10">Cart is empty</div>}
 
           <div className="space-y-5 pb-10 lg:hidden">
             {cartItems?.map((cartItem) => (
@@ -175,15 +184,15 @@ function Cart() {
             <div className="border p-4 font-semibold">Cart totals</div>
             <div className="border flex items-center justify-between p-4 text-[13px] md:text-[15px]">
               <div className="font-medium">Subtotal:</div>
-              <div>$438</div>
+              <div>${subTotal}</div>
             </div>
             <div className="border flex items-center justify-between p-4 text-[13px] md:text-[15px]">
               <div className="font-medium">Discount:</div>
-              <div>$20</div>
+              <div>${discount}</div>
             </div>
             <div className="border flex items-center justify-between p-4 text-[13px] md:text-[15px]">
               <div className="font-medium">Total:</div>
-              <div>$410</div>
+              <div>${subTotal-discount}</div>
             </div>
             <button className="p-4 my-2 w-full bg-green-600 text-white font-medium text-[13px] md:text-[15px]">BUY NOW</button>
           </div>
