@@ -23,11 +23,11 @@ function Body() {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=20`
+          `https://api.escuelajs.co/api/v1/products?offset=0&limit=20`
         );
         const data = await res.json();
+        // console.log(data)
         setProducts(data);
-        console.log(data)
         setLoading(false);
       } catch (error) {
         console.log(error);
