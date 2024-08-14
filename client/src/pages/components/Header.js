@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectCount } from '../features/cartSlice';
+import { selectCount } from '../../features/cartSlice';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
 

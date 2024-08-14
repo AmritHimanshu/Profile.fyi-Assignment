@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
-import { setCount } from "./features/cartSlice";
+import { setCount } from "../features/cartSlice";
 import Image from "next/image";
 import Header from "./components/Header";
 import CancelIcon from "@mui/icons-material/Cancel";

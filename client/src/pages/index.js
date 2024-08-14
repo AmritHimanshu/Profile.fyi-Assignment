@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
-import { setCount } from "./features/cartSlice";
+import { setCount } from "../features/cartSlice";
 import Banner from "./components/Banner";
 import Body from "./components/Body";
 
