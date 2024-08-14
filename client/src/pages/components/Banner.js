@@ -21,7 +21,7 @@ function Banner() {
           <div className="text-[1rem] sm:text-[2rem] lg:text-[3rem] tracking-wider">Experience Shopping Like Never Before at shopkaro!</div>
         </div>
       </div>
-      <ArrowDownwardIcon sx={{position:'absolute',bottom:'20px',left:'50%',zIndex:999,cursor:'pointer'}} className="hover:scale-125 hover:translate-y-3" onClick={handleScroll}/>
+      <ArrowDownwardIcon sx={{position:'absolute',bottom:'20px',left:'50%',zIndex:10,cursor:'pointer'}} className="hover:scale-125 hover:translate-y-3" onClick={handleScroll}/>
 
     </div>
   );
